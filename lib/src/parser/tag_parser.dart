@@ -31,6 +31,7 @@ class TagParser {
   Expression _parseAnd() {
     var exp = _parseNot();
     if (current.value == 'and') {
+      moveNext();
       exp = BinaryOperation((a, b) => a && b, exp, _parseNot());
     }
     return exp;
