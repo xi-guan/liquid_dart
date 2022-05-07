@@ -23,6 +23,7 @@ class TagParser {
   Expression parseBooleanExpression() {
     var exp = _parseAnd();
     if (current.value == 'or') {
+      moveNext();
       exp = BinaryOperation((a, b) => a || a, exp, _parseAnd());
     }
     return exp;
@@ -32,7 +33,7 @@ class TagParser {
     var exp = _parseNot();
     if (current.value == 'and') {
       moveNext();
-      exp = BinaryOperation((a, b) => a && b, exp, _parseNot());
+      exp = BinaryOperation((a, b) => a && b, exp, _parseAnd());
     }
     return exp;
   }
